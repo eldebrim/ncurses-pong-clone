@@ -58,11 +58,11 @@ int main()
 	struct pong_ball ball;
 	WINDOW *score_win;
 	
-	initscr();
-	keypad(stdscr, TRUE);
-	noecho();
-	nodelay(stdscr, TRUE);
-	getmaxyx(stdscr, max_y, max_x);
+	initscr();   	/* Initialize ncurses */ 
+	keypad(stdscr, TRUE);	/* Enable keypad */
+	noecho(); 	/* Do not echo input */
+	nodelay(stdscr, TRUE);	/* No delay in getch() function */
+	getmaxyx(stdscr, max_y, max_x);	
 	pad_1.y = max_y/2;
 	pad_1.x = 2;
 	pad_1.score = 0;
@@ -77,13 +77,10 @@ int main()
 
 	//score_win = newwin
 
-	//move(pad_1.y, pad_1.x);
-	//move(pad_2.y, pad_2.x);
-	//vline('|', PADDLE_LENGTH);
 	input = wgetch(stdscr);
-	
 	while(input != 'q')
-	{	if (input == 'w' && pad_1.y > 0)
+	{	// User input for paddle movement
+		if (input == 'w' && pad_1.y > 0)
 		{	pad_1.y -= 1;
 		}	
 		else if(input == 's' && pad_1.y + PADDLE_LENGTH < max_y)
@@ -96,6 +93,7 @@ int main()
 		{	pad_2.y += 1;
 		}
 		
+		// check for ball collision with screen borders or paddles
 		if (pad_collision(pad_1, ball))
 		{	return_ball(pad_1, &ball);
 		}
@@ -112,7 +110,7 @@ int main()
 		{	update_score(&pad_1, &ball, max_y, max_x);
 		}
 	
-		napms(40);
+		napms(40);	/* Wait 40 milliseconds */
 		ball.y += ball.y_velocity;
 		ball.x += ball.x_velocity;
 		werase(stdscr);
