@@ -1,9 +1,5 @@
 #include <ncurses.h>
 #include "pong.h"
-#include "time.h"
-#include "math.h"
-#include <stdlib.h>
-
 
 int pad_collision(struct paddle pad, struct pong_ball ball)
 {
