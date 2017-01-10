@@ -1,3 +1,4 @@
+#include <ncurses.h>
 #include "pong.h"
 #include "time.h"
 #include "math.h"
