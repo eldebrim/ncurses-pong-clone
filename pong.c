@@ -4,7 +4,7 @@
 
 int pad_collision(struct paddle pad, struct pong_ball ball)
 {
-	if ((ball.y >= pad.y && ball.y <= pad.y + PADDLE_LENGTH -1) && ball.x == pad.x - 1 ){
+	if ((ball.y >= pad.y && ball.y <= pad.y + PADDLE_LENGTH -1) && ( ball.x == pad.x)){
 		return TRUE;
 	} else {	
 		return FALSE;
@@ -35,8 +35,8 @@ void update_score(struct paddle *pad, struct pong_ball *ball, const int max_y, c
 { 
 	char score_buffer[2];
 	(*pad).score++;
-	(*ball).x = max_x/2;
 	(*ball).y = max_y/2;
+	(*ball).x = max_x/2;
 	napms(500);
 }
 
@@ -103,10 +103,10 @@ int main()
 		mvaddch(ball.y, ball.x, 'o');
 		mvwvline(stdscr, pad_1.y, pad_1.x, '|', PADDLE_LENGTH);
 		mvwvline(stdscr, pad_2.y, pad_2.x, '|', PADDLE_LENGTH);
-		mvwvline(stdscr, 0, max_x/2, '|', max_y);
-		sprintf(score_buffer, "%d", pad_1.score);   
+		mvwvline(stdscr, 0, max_x/2, '.', max_y);
+		sprintf(score_buffer, "%d", ball.x);   
 		mvwaddstr(stdscr, score_y, score_x, score_buffer);  /* Print pad 1 score */
-		sprintf(score_buffer, "%d", pad_2.score);
+		sprintf(score_buffer, "%d", pad_2.x);
 		mvwaddstr(stdscr, score_y, max_x - score_x, score_buffer);  /* Print pad 2 score */
 		wrefresh(stdscr);
 		input = wgetch(stdscr);
