@@ -68,7 +68,6 @@ int main()
 	ball.x_velocity = BALL_X_SPEED;
 	score_y = max_y/4;
 	score_x = max_x/3;
-	//score_win = newwin
 
 	input = wgetch(stdscr);
 	while(input != 'q' && (pad_1.score < 10 && pad_2.score < 10)) {
@@ -104,9 +103,9 @@ int main()
 		mvwvline(stdscr, pad_1.y, pad_1.x, '|', PADDLE_LENGTH);
 		mvwvline(stdscr, pad_2.y, pad_2.x, '|', PADDLE_LENGTH);
 		mvwvline(stdscr, 0, max_x/2, '.', max_y);
-		sprintf(score_buffer, "%d", ball.x);   
+		sprintf(score_buffer, "%d", pad_1.score);   
 		mvwaddstr(stdscr, score_y, score_x, score_buffer);  /* Print pad 1 score */
-		sprintf(score_buffer, "%d", pad_2.x);
+		sprintf(score_buffer, "%d", pad_2.score);
 		mvwaddstr(stdscr, score_y, max_x - score_x, score_buffer);  /* Print pad 2 score */
 		wrefresh(stdscr);
 		input = wgetch(stdscr);
