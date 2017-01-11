@@ -1,9 +1,10 @@
 #include <ncurses.h>
 #include "pong.h"
+#include <math.h>
 
 int pad_collision(struct paddle pad, struct pong_ball ball)
 {
-	if ((ball.y >= pad.y && ball.y <= pad.y + PADDLE_LENGTH) && ball.x == pad.x - 1){
+	if ((ball.y >= pad.y && ball.y <= pad.y + PADDLE_LENGTH -1) && ball.x == pad.x - 1 ){
 		return TRUE;
 	} else {	
 		return FALSE;
@@ -18,13 +19,13 @@ void return_ball(struct paddle pad, struct pong_ball *ball)
 {
 	if (pad.y == (*ball).y) {
 		(*ball).y_velocity = BALL_Y_SPEED;
-		(*ball).x_velocity *= -1;
+		(*ball).x_velocity = BALL_X_SPEED * (*ball).x_velocity * -1 / abs((*ball).x_velocity);
 	} else if (pad.y + PADDLE_LENGTH -1 == (*ball).y) {
 		(*ball).y_velocity = BALL_Y_SPEED * -1;
-		(*ball).x_velocity *= -1;
+		(*ball).x_velocity = BALL_X_SPEED * (*ball).x_velocity * -1 / abs((*ball).x_velocity);
 	} else {
 		(*ball).y_velocity = 0;
-		(*ball).x_velocity *= -1;
+		(*ball).x_velocity = BALL_MAX_SPEED * (*ball).x_velocity * -1 / abs((*ball).x_velocity);
 	}
 }
 
